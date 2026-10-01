@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Questions are welcome. If your question is open-ended or invites discussion, [GitHub Discussions](https://github.com/revfactory/harness/discussions) is usually a better venue.
+        Questions are welcome. If your question is open-ended or invites discussion, [GitHub Discussions](https://github.com/punkyade/multiagent-ebiz-v2/discussions) is usually a better venue.
 
         We try to triage questions within 48h.
 

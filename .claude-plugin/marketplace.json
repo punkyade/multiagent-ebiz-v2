@@ -1,9 +1,8 @@
 {
-  "name": "harness-marketplace",
+  "name": "ebiz-marketplace-atdge",
   "owner": {
-    "name": "revfactory",
-    "email": "revfactory@gmail.com",
-    "url": "https://github.com/revfactory"
+    "name": "punkyade",
+    "url": "https://github.com/punkyade"
   },
   "plugins": [
     {

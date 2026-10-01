@@ -18,6 +18,8 @@
 
 [English](README.md) | **한국어**
 
+> 이 저장소는 [revfactory/harness](https://github.com/revfactory/harness) v2.1.0(Apache 2.0)을 바탕으로, evolve 스킬·docs·references의 용어를 harness 스킬 기준으로 통일한 버전입니다.
+
 > **Harness는 Claude Code용 팀 아키텍처 팩토리입니다.** **"하네스 구성해줘"** 한 문장으로, 플러그인이 도메인 설명을 에이전트 팀과 그들이 쓸 스킬로 변환합니다.
 
 ## v2에서 달라진 것
@@ -60,13 +62,15 @@ Phase 7: 운영/유지보수 — 진화는 /harness:evolve
 ### 마켓플레이스 설치
 
 ```shell
-/plugin marketplace add revfactory/harness
-/plugin install harness@harness-marketplace
+/plugin marketplace add punkyade/multiagent-ebiz-v2
+/plugin install harness@ebiz-marketplace-atdge
 ```
 
 ### 글로벌 스킬로 직접 설치
 
 ```shell
+git clone https://github.com/punkyade/multiagent-ebiz-v2.git
+cd multiagent-ebiz-v2
 cp -r skills/harness ~/.claude/skills/harness
 cp -r skills/evolve ~/.claude/skills/harness-evolve
 ```
@@ -118,7 +122,7 @@ cp -r skills/evolve ~/.claude/skills/harness-evolve
 
 ## 선행 연구 결과 (v1)
 
-15개 소프트웨어 엔지니어링 과제에 대한 통제 A/B로 구조화된 사전 설정이 LLM 코드 에이전트 출력 품질에 미치는 영향을 측정: 평균 품질 49.5 → 79.3 (+60%), 승률 15/15, 출력 분산 −32% (n=15, 저자 자체 측정, [revfactory/claude-code-harness](https://github.com/revfactory/claude-code-harness) 참조). 저자 측정 수치이므로 도입 결정 시에는 자체 파일럿 측정을 권장합니다.
+15개 소프트웨어 엔지니어링 과제에 대한 통제 A/B로 구조화된 사전 설정이 LLM 코드 에이전트 출력 품질에 미치는 영향을 측정: 평균 품질 49.5 → 79.3 (+60%), 승률 15/15, 출력 분산 −32% (n=15, 원저자 자체 측정, [revfactory/claude-code-harness](https://github.com/revfactory/claude-code-harness) 참조). 저자 측정 수치이므로 도입 결정 시에는 자체 파일럿 측정을 권장합니다.
 
 ## 라이선스
 

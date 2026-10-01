@@ -1,0 +1,10 @@
+{
+  "extraKnownMarketplaces": {
+    "ebiz-marketplace-atdge": {
+      "source": { "source": "github", "repo": "punkyade/multiagent-ebiz-v2" }
+    }
+  },
+  "enabledPlugins": {
+    "harness@ebiz-marketplace-atdge": true
+  }
+}

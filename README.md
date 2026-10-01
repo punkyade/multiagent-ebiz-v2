@@ -18,6 +18,8 @@
 
 **English** | [한국어](README_KO.md)
 
+> This repository is based on [revfactory/harness](https://github.com/revfactory/harness) v2.1.0 (Apache 2.0), with terminology in the evolve skill, docs, and references unified to match the harness skill.
+
 > **Harness is a team-architecture factory for Claude Code.** One sentence — **"build a harness for this project"** · **"하네스 구성해줘"** — and the plugin turns your domain description into an agent team and the skills they use.
 
 ## What's new in v2
@@ -60,13 +62,15 @@ Phase 7: Maintenance — evolution via /harness:evolve
 ### Via marketplace
 
 ```shell
-/plugin marketplace add revfactory/harness
-/plugin install harness@harness-marketplace
+/plugin marketplace add punkyade/multiagent-ebiz-v2
+/plugin install harness@ebiz-marketplace-atdge
 ```
 
 ### As global skills
 
 ```shell
+git clone https://github.com/punkyade/multiagent-ebiz-v2.git
+cd multiagent-ebiz-v2
 cp -r skills/harness ~/.claude/skills/harness
 cp -r skills/evolve ~/.claude/skills/harness-evolve
 ```
@@ -118,7 +122,7 @@ See [docs/migration-v1-to-v2.md](docs/migration-v1-to-v2.md). Summary: remove `T
 
 ## Prior results (v1)
 
-A controlled A/B on 15 software-engineering tasks measured the effect of structured pre-configuration on LLM code-agent output quality: mean quality 49.5 → 79.3 (+60%), 15/15 win rate, −32% output variance (n=15, author-run, see [revfactory/claude-code-harness](https://github.com/revfactory/claude-code-harness)). Treat these as author-measured numbers; run your own pilot for adoption decisions.
+A controlled A/B on 15 software-engineering tasks measured the effect of structured pre-configuration on LLM code-agent output quality: mean quality 49.5 → 79.3 (+60%), 15/15 win rate, −32% output variance (n=15, measured by the upstream author, see [revfactory/claude-code-harness](https://github.com/revfactory/claude-code-harness)). Treat these as author-measured numbers; run your own pilot for adoption decisions.
 
 ## License
 

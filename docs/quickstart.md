@@ -13,16 +13,16 @@
 ## Step 1 — 마켓플레이스 추가 (30초)
 
 ```
-/plugin marketplace add revfactory/harness
+/plugin marketplace add punkyade/multiagent-ebiz-v2
 ```
 
 ## Step 2 — 플러그인 설치 (30초)
 
 ```
-/plugin install harness@harness-marketplace
+/plugin install harness@ebiz-marketplace-atdge
 ```
 
-**실패 FAQ — 설치가 안 보임:** `/plugin list`로 확인. 없으면 Step 1부터 재실행, 있는데 비활성이면 `/plugin enable harness@harness-marketplace`.
+**실패 FAQ — 설치가 안 보임:** `/plugin list`로 확인. 없으면 Step 1부터 재실행, 있는데 비활성이면 `/plugin enable harness@ebiz-marketplace-atdge`.
 
 ## Step 3 — 한 문장으로 하네스 생성 (2분)
 
