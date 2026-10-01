@@ -15,6 +15,7 @@
 - [ ] 호출 조건에 영향을 주는 description 변경이면 불러와야 하는 요청 / 경계 사례로 검증했는가
 - [ ] CHANGELOG.md에 항목을 추가했는가
 - [ ] 버전을 올렸는가: `plugin.json` = `marketplace.json`. 버전이 그대로면 설치한 사용자가 업데이트를 받지 못한다
+- [ ] `python .github/scripts/check.py --base origin/main`이 통과하는가. 푸시와 PR마다 GitHub Action이 같은 점검을 실행한다
 
 ## 이슈
 
