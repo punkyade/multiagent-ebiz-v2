@@ -1,7 +1,7 @@
 <!--
 Thanks for sending a PR! Please fill in the sections below so reviewers can move fast.
 
-See CONTRIBUTING.md for branch naming, commit conventions, and SLAs.
+See CONTRIBUTING.md for principles and the PR checklist.
 -->
 
 ## Summary
@@ -22,31 +22,28 @@ See CONTRIBUTING.md for branch naming, commit conventions, and SLAs.
 - [ ] Skill / meta-skill logic
 - [ ] Agent template(s)
 - [ ] Plugin manifest (`.claude-plugin/plugin.json`, `marketplace.json`)
-- [ ] Documentation (`README.md`, `README_KO.md`, `README_JA.md`, `docs/`)
+- [ ] Documentation (`README.md`, `README_KO.md`, `docs/`)
 - [ ] `CHANGELOG.md`
-- [ ] CI / GitHub Actions
-- [ ] Tests
 - [ ] Other (describe):
 
 ## Tests
 
 <!-- What did you run locally? Paste output or describe. -->
 
-- [ ] `npx markdownlint '**/*.md'` passes
 - [ ] Manual repro of the change works as expected
-- [ ] New unit / integration tests added (if applicable)
+- [ ] description changes verified with should-load requests and near-miss cases
 - [ ] N/A — explain below
 
 ## CHANGELOG update
 
-<!-- Every user-visible change must land in CHANGELOG.md under the Unreleased section. -->
+<!-- Every user-visible change must land in CHANGELOG.md with a version bump (`plugin.json` = `marketplace.json` = README badges). Without a bump, installed users do not receive the update. -->
 
 - [ ] Yes — added to `CHANGELOG.md`
 - [ ] No — this change is not user-visible (docs-only / internal refactor)
 
 ## SemVer impact
 
-<!-- See CONTRIBUTING.md § Commit Message Convention. Choose one. -->
+<!-- Choose one. -->
 
 - [ ] **Patch** — bug fix, no API change (`fix:`)
 - [ ] **Minor** — additive, backward-compatible (`feat:`)

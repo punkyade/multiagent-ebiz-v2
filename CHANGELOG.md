@@ -2,6 +2,25 @@
 
 이 프로젝트는 [Semantic Versioning](https://semver.org/)을 따릅니다.
 
+## [2.1.1] - 2026-10-01
+
+[revfactory/harness](https://github.com/revfactory/harness) 2.1.0을 바탕으로 한 ebiz 부서용 첫 릴리스.
+
+### Changed
+
+- **용어 통일** — evolve 스킬, `docs/`, references 앵커 ID, `marketplace.json` 설명문을 harness 스킬의 용어(단계, 워크플로 조율, 지속형 에이전트, 호출 조건 등)로 통일
+- **저장소 이전** — 저장소·소유자 정보를 `punkyade/multiagent-ebiz-v2`로 변경. 마켓플레이스 이름을 `harness-marketplace`에서 `ebiz-marketplace-atdge`로 바꿔 설치 명령이 `harness@ebiz-marketplace-atdge`가 됨
+- **이슈 템플릿** — Discussions 링크·담당자 변경, 보안 제보를 GitHub 비공개 취약점 제보로 변경
+- **CONTRIBUTING·PR 템플릿** — 부서 운영 방식에 맞게 정리하고, 푸시할 때마다 버전을 올리는 규칙 추가
+
+### Added
+
+- **`.claude/settings.json`** — 마켓플레이스 등록과 harness 플러그인 활성화 설정
+
+### Removed
+
+- **`docs/harness-animation.mp4`** — 어느 문서에서도 참조하지 않는 6MB 파일
+
 ## [2.1.0] - 2026-09-26
 
 ### Changed

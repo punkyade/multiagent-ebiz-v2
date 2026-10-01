@@ -12,18 +12,11 @@
 ## PR 체크리스트
 
 - [ ] 변경이 SKILL.md와 관련 references 간에 일관되는가 (한쪽만 고치지 않았는가)
-- [ ] 트리거에 영향을 주는 description 변경이면 should-trigger / near-miss 쿼리로 검증했는가
+- [ ] 호출 조건에 영향을 주는 description 변경이면 불러와야 하는 요청 / 경계 사례로 검증했는가
 - [ ] CHANGELOG.md에 항목을 추가했는가
-- [ ] 버전 정합성: `plugin.json` = `marketplace.json` = README 뱃지
+- [ ] 버전을 올렸는가: `plugin.json` = `marketplace.json` = README 뱃지(EN/KO). 버전이 그대로면 설치한 사용자가 업데이트를 받지 못한다
 
 ## 이슈
 
 - 버그: 재현 프롬프트 + 기대/실제 동작 + `claude --version`
 - 런타임 호환성 깨짐: `compat` 라벨 — 최우선 처리
-
-## 응답 목표
-
-- PR 1차 응답: 72시간 이내
-- Issue 트리아지: 48시간 이내
-
-커뮤니티 약속이며 유료 SLA가 아닙니다.
