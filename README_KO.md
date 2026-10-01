@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-2.1.1-brightgreen.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-2.1.2-brightgreen.svg" alt="Version">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" alt="License"></a>
   <img src="https://img.shields.io/badge/Claude_Code-Plugin-purple.svg" alt="Claude Code Plugin">
   <img src="https://img.shields.io/badge/실행모드-3종-teal.svg" alt="3 Execution Modes">

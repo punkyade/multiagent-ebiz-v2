@@ -2,6 +2,12 @@
 
 이 프로젝트는 [Semantic Versioning](https://semver.org/)을 따릅니다.
 
+## [2.1.2] - 2026-10-01
+
+### Added
+
+- **부서 업무 팀 구성 예시 4종** — `references/team-examples.md`에 예시 6~9 추가: 커머스 기능 개발과 QA(지속형 개발자 + 워크플로 QA), 운영 리포트와 정산 자동화(워크플로 조율, 스크립트 코드로 검산), 광고·캠페인 성과 분석(이상치 적대적 검증), 상품·프로모션 콘텐츠 제작(지속형 작성자 + 단발 검토자)
+
 ## [2.1.1] - 2026-10-01
 
 [revfactory/harness](https://github.com/revfactory/harness) 2.1.0을 바탕으로 한 ebiz 부서용 첫 릴리스.

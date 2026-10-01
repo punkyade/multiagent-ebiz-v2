@@ -141,6 +141,91 @@ return { confirmed }
              전체 패널의 50% 이상이 REDO이면 사용자에게 프롬프트 수정을 제안한다.
 ```
 
+## 예시 6: 커머스 기능 개발과 QA — 지속형 개발자와 워크플로 QA의 혼합 모드
+
+**구성:** 파이프라인 + 생성·검증
+
+**선택 이유:** API 개발자와 프런트엔드 개발자는 응답 형식과 오류 코드를 맞추느라 여러 번 대화해야 하므로 이전 맥락을 기억해야 한다. 반면 QA는 모듈마다 같은 대조 항목을 확인하므로 워크플로로 정할 수 있다.
+
+```
+1단계(지속형 에이전트): Agent(name: "api-developer") + Agent(name: "frontend-developer") 병렬 실행
+               → api-developer가 장바구니·주문 API 응답 형식을 _workspace/api_contract.md에 확정
+               → SendMessage로 frontend-developer에 전달
+               → 화면에 필요한 필드가 빠졌으면 frontend-developer가 SendMessage로 추가 요청
+2단계(워크플로 조율): 모듈 하나가 완성될 때마다 QA 실행
+         phase '대조': 모듈별로 qa-inspector가 API 응답과 프런트엔드 타입,
+                      링크·라우터 경로, 주문 상태 전이를 대조
+         phase '검증': 찾은 불일치마다 적대적 검증 → confirmed 항목만 개발자에게 전달
+3단계(지속형 에이전트): confirmed 불일치를 SendMessage로 해당 개발자에게 보내 수정 지시
+```
+
+주문 상태(결제 대기 → 결제 완료 → 배송 중 → 배송 완료, 그리고 취소·환불)처럼 상태가 많은 기능은 상태 전이가 빠지기 쉽다. QA 체크리스트에 상태 전이표를 넣고, 각 전이를 처리하는 코드 위치를 대조하게 한다. 대조 방법은 `qa-agent-guide.md`의 「통합 정합성 검증」을 따른다. 모든 모듈을 만든 뒤 한꺼번에 QA를 하면 앞 모듈의 계약 불일치가 뒤 모듈까지 퍼지므로, 모듈을 완성할 때마다 실행한다.
+
+## 예시 7: 운영 리포트와 정산 자동화 — 워크플로 조율
+
+**구성:** 분산·통합 + 검산
+
+**선택 이유:** 데이터 출처(주문, 결제, 환불, 광고비)를 미리 나열할 수 있고, 매주 같은 절차를 반복한다. 수집과 형식 변환은 일상 업무이므로 `sonnet`으로 충분하다.
+
+```javascript
+const SOURCE_RESULT = { type: 'object', required: ['source', 'rows', 'total'], properties: {
+  source: { type: 'string' }, rows: { type: 'integer' }, total: { type: 'number' } } }
+const collected = (await pipeline(args.sources,   // 예: ['orders', 'payments', 'refunds', 'ad_spend']
+  s => agent(`${args.period} 기간의 ${s} 데이터를 읽어 _workspace/report_${s}.csv로 변환하고 건수와 합계를 반환하라.`,
+    { phase: '수집', schema: SOURCE_RESULT, model: 'sonnet' })   // 반복적인 수집·변환
+)).filter(Boolean)
+const by = Object.fromEntries(collected.map(r => [r.source, r.total]))
+const missing = ['orders', 'payments', 'refunds'].filter(s => !(s in by))
+if (missing.length) return { collected, missing, diff: null }   // 출처가 빠지면 검산하지 않는다
+// 금액 검산은 모델에 맡기지 않고 스크립트 코드로 계산한다
+const diff = by.orders - by.payments + by.refunds
+const investigation = Math.abs(diff) > args.tolerance
+  ? await agent(`주문 합계와 결제·환불 합계가 ${diff}만큼 맞지 않는다. _workspace/report_*.csv를 대조해 원인 후보를 근거와 함께 찾아라.`,
+      { phase: '검산', model: 'opus' })   // 원인 분석은 복잡한 판단이 필요
+  : null
+return { collected, missing, diff, investigation }
+```
+
+합계·차액처럼 정확해야 하는 계산은 에이전트가 아니라 스크립트 코드에서 한다. 모델은 데이터를 읽고 변환하는 일과, 숫자가 맞지 않을 때 원인을 찾는 일에만 쓴다. 출처 하나가 실패해 `collected`에서 빠지면 검산 결과를 믿을 수 없으므로, 검산을 건너뛰고 `missing`에 담긴 출처를 보고서에 표시한다.
+
+## 예시 8: 광고·캠페인 성과 분석 — 워크플로 조율
+
+**구성:** 분산·통합 + 적대적 검증
+
+**선택 이유:** 분석할 캠페인이나 채널 목록을 미리 정할 수 있다. 성과 이상치는 실제 성과 변화가 아니라 집계 지연·추적 누락 같은 데이터 문제인 경우가 많으므로, 찾은 이상치를 하나씩 다시 검증해야 한다.
+
+```
+[메인] 분석 기간·캠페인 목록·핵심 지표(노출, 클릭, 전환, 광고비, ROAS) 확정
+     → Workflow(script, args: {campaigns, period, ws})
+         phase '분석': pipeline(campaigns, c => agent(..., {schema: ANOMALIES}))
+                       캠페인마다 전 기간 대비 이상치와 근거 지표를 반환
+         phase '검증': 이상치마다 적대적 검증 에이전트 실행
+                       "데이터 문제(집계 지연, 추적 코드 누락, 중복 집계)로 설명되는가?"를 먼저 확인
+                       → 실제 성과 변화만 confirmed
+         phase '종합': confirmed 이상치로 원인 가설과 다음 조치 정리
+     → 메인이 _workspace/campaign_report.md 작성
+```
+
+캠페인 수가 많으면 토큰 예산에 맞춰 분석 범위를 정한다(`workflow-recipes.md`의 「토큰 예산 연동 반복」). 데이터 문제로 판정한 이상치는 버리지 말고 보고서의 "데이터 점검 필요" 항목에 따로 적는다. 다음 리포트에서 같은 문제가 반복되는지 확인할 수 있다.
+
+## 예시 9: 상품·프로모션 콘텐츠 제작 — 지속형 작성자와 단발 검토자
+
+**구성:** 생성·검증
+
+**선택 이유:** 작성자가 브랜드 톤과 앞서 받은 수정 요청을 기억해야 하므로 지속형 에이전트로 둔다. 검토는 브랜드 가이드와 광고 표현 기준을 대조해 결과만 돌려주면 되므로 단발 호출로 충분하다.
+
+```
+1단계: Agent(name: "copywriter") → 상세 페이지 문구·배너 문구 시안 작성 → _workspace/copy_draft.md
+2단계(서브에이전트 병렬): brand-reviewer(브랜드 톤·용어) + compliance-reviewer(광고 표현 기준)
+       각각 한 번 호출 → 문장별 PASS/FIX 판정과 이유 → _workspace/copy_review.md
+3단계: FIX 판정을 받은 문장만 SendMessage({to: "copywriter"})로 수정 지시
+       최대 두 번 반복한다. copywriter가 이전 맥락을 기억하므로
+       "할인율 문장만 수정"처럼 범위를 좁혀 지시할 수 있다.
+재시도 방침: 두 번 수정해도 통과하지 못한 문장은 원문과 검토 의견을 함께 사용자에게 넘긴다.
+```
+
+광고 표현 검토 기준(근거 없는 최상급 표현, 할인 전 가격 표기, 혜택 조건 누락 등)은 `compliance-reviewer`의 정의 파일이나 전용 스킬의 `references/`에 둔다. 기준이 바뀌면 그 파일만 고치면 되고, 작성자 프롬프트는 건드리지 않아도 된다. 최종 게시 여부는 사람이 판단한다.
+
 ---
 
 ## 산출물 저장 방식
