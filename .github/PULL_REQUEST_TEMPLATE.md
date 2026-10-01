@@ -36,7 +36,7 @@ See CONTRIBUTING.md for principles and the PR checklist.
 
 ## CHANGELOG update
 
-<!-- Every user-visible change must land in CHANGELOG.md with a version bump (`plugin.json` = `marketplace.json` = README badges). Without a bump, installed users do not receive the update. -->
+<!-- Every user-visible change must land in CHANGELOG.md with a version bump (`plugin.json` = `marketplace.json`). Without a bump, installed users do not receive the update. -->
 
 - [ ] Yes — added to `CHANGELOG.md`
 - [ ] No — this change is not user-visible (docs-only / internal refactor)
