@@ -2,6 +2,14 @@
 
 이 프로젝트는 [Semantic Versioning](https://semver.org/)을 따릅니다.
 
+## [2.1.3] - 2026-10-01
+
+### Added
+
+- **공용 에이전트 3종** — 플러그인 `agents/`에 `qa-inspector`(통합 정합성 QA), `compliance-reviewer`(광고 표현 검토), `data-anomaly-verifier`(이상치 반증 검증) 추가. `harness:<이름>`으로 호출
+- **harness 스킬 3단계·team-examples** — 같은 역할이 필요하면 프로젝트에 새로 만들지 않고 공용 에이전트를 쓰도록 안내
+- **자동 점검** — `agents/`의 frontmatter 확인, `agents/`가 바뀌면 버전을 올렸는지 확인
+
 ## [2.1.2] - 2026-10-01
 
 ### Added

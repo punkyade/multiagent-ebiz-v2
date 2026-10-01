@@ -141,6 +141,8 @@ return { confirmed }
              전체 패널의 50% 이상이 REDO이면 사용자에게 프롬프트 수정을 제안한다.
 ```
 
+예시 6~9의 검토자 가운데 `qa-inspector`, `compliance-reviewer`, 이상치 검증 에이전트는 이 플러그인이 공용 에이전트로 제공한다. 호출할 때는 `harness:qa-inspector`, `harness:compliance-reviewer`, `harness:data-anomaly-verifier`처럼 플러그인 이름을 붙인다.
+
 ## 예시 6: 커머스 기능 개발과 QA — 지속형 개발자와 워크플로 QA의 혼합 모드
 
 **구성:** 파이프라인 + 생성·검증

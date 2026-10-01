@@ -1,7 +1,7 @@
 {
   "name": "harness",
   "description": "The team-architecture factory for Claude Code v2 — a meta-skill that turns a domain description into an agent team and the skills they use. Three native execution modes (Workflow orchestration, persistent named-agent collaboration, sub-agent delegation), six team-architecture patterns, and workflow-native quality patterns (adversarial verification, judge panels, loop-until-dry). Claude Code용 팀 아키텍처 팩토리 v2: 도메인 한 문장을 에이전트 팀과 스킬 세트로 변환하는 메타 스킬.",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "author": {
     "name": "punkyade",
     "url": "https://github.com/punkyade"

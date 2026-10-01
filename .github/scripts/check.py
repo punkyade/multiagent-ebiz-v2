@@ -16,7 +16,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 PLUGIN_JSON = ".claude-plugin/plugin.json"
 MARKETPLACE_JSON = ".claude-plugin/marketplace.json"
 SETTINGS_JSON = ".claude/settings.json"
-PLUGIN_PATHS = ["skills/", ".claude-plugin/"]  # 바뀌면 버전을 올려야 하는 경로
+PLUGIN_PATHS = ["skills/", "agents/", ".claude-plugin/"]  # 바뀌면 버전을 올려야 하는 경로
 
 errors = []
 
@@ -70,8 +70,9 @@ def check_yaml():
             errors.append(f"{os.path.relpath(path, ROOT)}: YAML 오류 ({e})")
 
 
-def check_skills():
-    for path in sorted(glob.glob(os.path.join(ROOT, "skills", "*", "SKILL.md"))):
+def check_frontmatter():
+    paths = glob.glob(os.path.join(ROOT, "skills", "*", "SKILL.md")) + glob.glob(os.path.join(ROOT, "agents", "*.md"))
+    for path in sorted(paths):
         rel = os.path.relpath(path, ROOT)
         m = re.match(r"---\r?\n(.*?)\r?\n---", read(rel), re.S)
         meta = yaml.safe_load(m.group(1)) if m else None
@@ -119,7 +120,7 @@ def main():
     base = sys.argv[sys.argv.index("--base") + 1] if "--base" in sys.argv else None
     plugin = check_manifests()
     check_yaml()
-    check_skills()
+    check_frontmatter()
     check_links()
     if base and plugin:
         check_version_bump(base, plugin)
